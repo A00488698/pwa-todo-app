@@ -40,9 +40,6 @@ npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
 1. Tasks are stored in localStorage.
 2. The application does not include authentication or a backend.
 3. There is only add and delete.
-## Service Worker & Offline Support
-This project includes a Service Worker (`sw.js`) to enable offline functionality.  
-When the app is loaded, it caches the necessary resources, allowing the user to continue using the app without an internet connection.
 
 ## Service Worker & Offline Support
 This project includes a Service Worker (`sw.js`) to enable offline functionality.  
@@ -54,6 +51,9 @@ When the app is loaded, it caches the necessary resources, allowing the user to 
 2. Check `Offline` mode and refresh the page.
    ![Service Workers](images/image_offline.jpg)
 3. If the app still works, offline mode is functioning correctly.
+
+## PWA Manifest Configuration
+   ![Service Workers](images/manifest.jpg)
 
 ## Cache Storage
    ![Service Workers](images/Cache_Storage.jpg)
