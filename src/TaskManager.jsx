@@ -43,11 +43,11 @@ const TaskManager = () => {
     // Delete task
     const deleteTask = (id) => {
         try {
-            const tasks = JSON.parse(localStorage.getItem("tasks")) || []; // 获取当前任务列表
-            const updatedTasks = tasks.filter(task => task.id !== id); // 过滤掉要删除的任务
-            localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // 存回 localStorage
-            setTasks(updatedTasks); // 更新 React 状态，重新渲染 UI
-            console.log(`Task with id ${id} was removed`); // 控制台打印日志
+            const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            const updatedTasks = tasks.filter(task => task.id !== id);
+            localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+            setTasks(updatedTasks);
+            console.log(`Task with id ${id} was removed`);
             return true;
         } catch (err) {
             console.error("Failed to remove task: ", err);
@@ -108,7 +108,7 @@ const TaskManager = () => {
                         label="New Task"
                         value={newTask}
                         onChange={(e) => setNewTask(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && addTask()}
+                        onKeyDown={(e) => e.key === 'Enter' && addTask()}
                         sx={{
                             '& .MuiOutlinedInput-root': {
                                 height: 48
@@ -165,15 +165,17 @@ const TaskManager = () => {
                                 }}
                             >
                                 <ListItemText
-                                    primary={task.text}
-                                    primaryTypographyProps={{
-                                        sx: {
+                                    primary={<Typography
+                                        sx={{
                                             whiteSpace: 'nowrap',
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
                                             pr: 2
-                                        }
-                                    }}
+                                        }}
+                                    >
+                                        {task.text}
+                                    </Typography>}
+
                                 />
                                 <IconButton
                                     sx={{
