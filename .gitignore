@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+../mcda5550-pwa/dist
 dist-ssr
 *.local
 

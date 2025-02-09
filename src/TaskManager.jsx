@@ -42,10 +42,18 @@ const TaskManager = () => {
 
     // Delete task
     const deleteTask = (id) => {
-        const updatedTasks = tasks.filter(task => task.id !== id)
-        setTasks(updatedTasks)
-        saveTasks(updatedTasks)
-    }
+        try {
+            const tasks = JSON.parse(localStorage.getItem("tasks")) || []; // 获取当前任务列表
+            const updatedTasks = tasks.filter(task => task.id !== id); // 过滤掉要删除的任务
+            localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // 存回 localStorage
+            setTasks(updatedTasks); // 更新 React 状态，重新渲染 UI
+            console.log(`Task with id ${id} was removed`); // 控制台打印日志
+            return true;
+        } catch (err) {
+            console.error("Failed to remove task: ", err);
+            return false;
+        }
+    };
 
     // Pagination calculations
     const indexOfLastTask = currentPage * tasksPerPage
