@@ -12,20 +12,23 @@ export default defineConfig({
         short_name: 'Todo',
         start_url: '/',
         display: 'standalone',
-        background_color: '#ffffff',
+        background_color: '#1976d2',
         theme_color: '#ffffff',
         icons: [
           {
-            src: 'icon-192x192.png',
+            src: '/favicon/icon-192x192.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: 'icon-512x512.png',
+            src: '/favicon/icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
           },
         ],
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,png,svg}'], // 缓存所有静态资源
       },
     }),
   ],

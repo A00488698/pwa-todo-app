@@ -1,44 +1,37 @@
 import React, { useState, useEffect } from 'react';
 
 const TodoList = () => {
+    const [task, setTask] = useState("");
     const [tasks, setTasks] = useState([]);
-    const [newTask, setNewTask] = useState('');
 
     useEffect(() => {
-        const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        setTasks(storedTasks);
+        const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        setTasks(savedTasks);
     }, []);
 
-    useEffect(() => {
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }, [tasks]);
-
     const addTask = () => {
-        if (newTask.trim()) {
-            setTasks([...tasks, { id: Date.now(), text: newTask, completed: false }]);
-            setNewTask('');
-        }
+        if (!task) return;
+        const newTasks = [...tasks, { id: Date.now(), text: task }];
+        setTasks(newTasks);
+        localStorage.setItem("tasks", JSON.stringify(newTasks));
+        setTask("");
     };
 
-    const deleteTask = (id) => {
-        setTasks(tasks.filter(task => task.id !== id));
+    const removeTask = (id) => {
+        const updatedTasks = tasks.filter((t) => t.id !== id);
+        setTasks(updatedTasks);
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     };
 
     return (
         <div>
-            <h1>To-Do List</h1>
-            <input
-                type="text"
-                value={newTask}
-                onChange={(e) => setNewTask(e.target.value)}
-                placeholder="Add a new task"
-            />
-            <button onClick={addTask}>Add Task</button>
+            <h1>To-Do PWA</h1>
+            <input value={task} onChange={(e) => setTask(e.target.value)} />
+            <button onClick={addTask}>Add</button>
             <ul>
-                {tasks.map(task => (
-                    <li key={task.id}>
-                        {task.text}
-                        <button onClick={() => deleteTask(task.id)}>Delete</button>
+                {tasks.map((t) => (
+                    <li key={t.id}>
+                        {t.text} <button onClick={() => removeTask(t.id)}>Delete</button>
                     </li>
                 ))}
             </ul>
